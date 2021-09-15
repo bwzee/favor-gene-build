@@ -45,3 +45,5 @@ https://omim.org/static/omim/data/mim2gene.txt
 
 
 https://www.ebi.ac.uk/gwas/api/search/downloads/full
+
+
