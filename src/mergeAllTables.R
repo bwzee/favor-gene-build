@@ -23,12 +23,12 @@ coldesctsv=glue("../output/genedb.column_descriptions.{version}.xlsx")
 log_info("Reading in all data")
 dir.create(dirname(outjson),showWarnings = F)
 
-dbnsfp_in="../dbNSFP4.1_gene.complete"
-hpa_in="../proteinatlas.tsv"
-hgnc_in="../gene_with_protein_product.txt"
+#Define some input files
+dbnsfp_in="../dbNSFP4.1_gene.complete"  #INPUT 
+hpa_in="../proteinatlas.tsv"            #INPUT 
+hgnc_in="../gene_with_protein_product.txt"  #INPUT
 
 fread(dbnsfp_in) %>% janitor::clean_names()->dbnsfp
-
 data.frame(source="DBNSFP_Gene",column=names(dbnsfp)) ->dsn_names
 
 

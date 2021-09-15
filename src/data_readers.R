@@ -16,7 +16,7 @@ parse_s_het<-function(infile="../s-het/075523-1.xlsx"){
   return(dt)
 }
 
-parse_gtex<-function(infile="../GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_median_tpm.gct"){
+parse_gtex<-function(infile="../GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_median_tpm.gct"){ 
   
 }
 ##decipher
