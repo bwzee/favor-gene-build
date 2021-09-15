@@ -39,5 +39,9 @@ https://storage.googleapis.com/gtex_analysis_v8/rna_seq_data/GTEx_Analysis_2017-
 ## OMIM
 
 
+https://omim.org/static/omim/data/mim2gene.txt
+
 ## GWAS Catalog
 
+
+https://www.ebi.ac.uk/gwas/api/search/downloads/full
