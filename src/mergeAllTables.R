@@ -2,14 +2,22 @@
 library(data.table)
 library(logger)
 library(DT)
+library(glue)
+library(tidyverse)
+library(readxl)
+
 source("parse_omim.R")
 source("data_readers.R")
 
-
-outjson="../output/genedb.v2.out.json"
-tsvout="../output/genedb.v2.out.tsv"
-outrds="../output/genedb.v2.rds"
-coldesc="../output/genedb.column_descriptions.v2.xlsx"
+version="v2"
+#Output file names
+log_info(glue("Setting output files for version {version}"))
+dir.create("../output")
+outjson=glue("../output/genedb.{version}.out.json")
+tsvout=glue("../output/genedb.{version}.out.tsv")
+outrds=glue("../output/genedb.{version}.rds")
+coldesc=glue("../output/genedb.column_descriptions.{version}.xlsx")
+coldesctsv=glue("../output/genedb.column_descriptions.{version}.xlsx")
 
 
 log_info("Reading in all data")
@@ -65,18 +73,11 @@ rbind(data.frame(source="DECIPER_DD2GP",column=names(decipher)), dsn_names)-> ds
 merge(mg,decipher,by.x="gene_symbol",by.y="gene_symbol",all.x=T)->mg
 
 
-
-
-
 log_info("Adding HPA")
 merge(mg,hpa,by.x="ensembl_gene",by.y="ensembl",all.x=T)-> mg2
-
 setnames(mg2,"gene_name.x","gene_name")
-
 xnames= grep("\\.x$",names(mg2),value=T)
-
 mg2 %>% select(-xnames) ->mg2
-
 
 
 log_info("Saving RDS")
@@ -84,13 +85,16 @@ saveRDS(mg2,outrds)
 
 log_info("Writing JSON output")
 write(jsonlite::toJSON(mg2,pretty = T),outjson)
+log_info("Writing TSV output")
 write.table(mg2,tsvout,row.names=F,quote=F,sep="\t")
 
 dsn_names=as.data.table(dsn_names)
 dsn_names$column_type="character"
 dsn_names[grepl("score|tpm|fpkm|exac_|gnomad_|rvis_|position|location",column),column_type:="numeric"]
-
+log_info("Completed")
 
 writexl::write_xlsx(dsn_names,coldesc)
 
-write.table(dsn_names,"../output/genedb.column_descriptions.tsv",sep="\t",quote=F,row.names = F)
+write.table(dsn_names,coldesctsv,sep="\t",quote=F,row.names = F)
+
+
