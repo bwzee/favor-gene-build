@@ -48,6 +48,7 @@ log_info("Begin Data Reading ..")
 log_info("Reading DBNSFP")
 fread(dbnsfp_in) %>% janitor::clean_names()->dbnsfp
 if (testing==TRUE){
+  log_info("Testing mode on: reading sample of rows")
   dbnsfp<-head(dbnsfp,samplesize)
 }
 
@@ -91,12 +92,12 @@ setnames(mg2,"gene_name.x","gene_name")
 xnames= grep("\\.x$",names(mg2),value=T)
 mg2 %>% select(-xnames) ->mg2
 
+if (!file.exists(outrds)){
+  log_info("Saving RDS")
+  saveRDS(mg2,outrds)
+}
 
-log_info("Saving RDS")
-saveRDS(mg2,outrds)
 
-log_info("Writing JSON output")
-write(jsonlite::toJSON(mg2,pretty = T),outjson)
 log_info("Writing TSV output")
 write.table(mg2,tsvout,row.names=F,quote=F,sep="\t")
 log_info("Core Database Creation Completed")
@@ -137,5 +138,9 @@ dsn_names=as.data.table(dsn_names)
 writexl::write_xlsx(dsn_names,coldesc)
 write.table(dsn_names,coldesctsv,sep="\t",quote=F,row.names = F)
 log_info("Created data source column descriptors")
+
+log_info("Writing JSON output")
+write_fast_json(mg2,outjson)
+
 
 }

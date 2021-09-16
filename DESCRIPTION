@@ -13,7 +13,8 @@ Depends: data.table,
         magrittr,
         writexl,
         glue,
-        logger
+        logger,
+        parallel
 Suggests: data.table,
           magrittr,
           DT,

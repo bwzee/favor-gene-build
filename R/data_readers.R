@@ -105,10 +105,8 @@ parse_mouse_mgi_knockout<-function(infile="http://www.informatics.jax.org/downlo
       #Collapse by human gene
     d=as.data.table(d)[,by="gene_symbol",list(
         mgi_allele_accession_id=paste(unique(mgi_allele_accession_id),collapse=","),
-      allele_name=paste(unique(allele_name),collapse=","),
-      allele_symbol=paste(unique(allele_symbol),collapse=","),
-      allele_attribute=paste(unique(allele_attribute),collapse=",")
-    )]
+      allele_symbol=paste(unique(allele_symbol),collapse=",")
+      )]
     print(dim(d))
     return(d)
   }else{
