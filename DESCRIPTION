@@ -1,0 +1,28 @@
+Package: FavorGenedDB
+Type: Package
+Title: FAVOR Gene annotation builder
+Version: 0.1.0
+Author: Z Albertyn
+Maintainer: The package maintainer <yourself@somewhere.net>
+Description: Code for building FAVOR gene annotations
+License: What license is it under?
+Depends: data.table,
+        tidyverse,
+        writexl,
+        readxl,
+        magrittr,
+        writexl,
+        glue,
+        logger
+Suggests: data.table,
+          magrittr,
+          DT,
+          tidyverse,
+          readxl,
+          writexl,
+          logger,
+          glue,
+          zoo,
+          ggplot2
+Encoding: UTF-8
+LazyData: true

@@ -9,6 +9,14 @@ library(tidyverse)
 library(writexl)
 library(DT)
 
+#' makeHeaderSheet
+#'
+#' @param infile
+#'
+#' @return
+#' @export
+#'
+#' @examples
 makeHeaderSheet<-function(infile="../dbNSFP4.1_gene.complete.header.tsv"){
   fread(infile) %>% janitor::clean_names()->dbnsfp
   data.frame(colname=names(dbnsfp)) -> ot
@@ -18,14 +26,15 @@ makeHeaderSheet<-function(infile="../dbNSFP4.1_gene.complete.header.tsv"){
 
 
 
-
+makeDataSchema_old<-function(){
 dbnsfp=makeHeaderSheet(infile="../dbNSFP4.1_gene.complete.header.tsv")
 hpa=makeHeaderSheet(infile="../proteinatlas.header.tsv")
 hugo=makeHeaderSheet(infile="../gene_with_protein_product.header.tsv")
-
 
 write_xlsx(list(
   dbnsfp=dbnsfp,
   HPA=hpa,
   HGNC=hugo
 ),"../DataFiles_schema.xlsx")
+
+}

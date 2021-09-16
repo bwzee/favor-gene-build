@@ -5,6 +5,7 @@ library(data.table) # to make sliding window dataframe
 library(zoo) # to apply rolling function for sliding window
 library(ggplot2)
 
+geneWindows<-function(){
 #upload data to dataframe, rename headers, make locus continuous, create subsets
 depth <- read.table("sorted.depth", sep="\t", header=F)
 
@@ -17,7 +18,7 @@ Xdepth.average<-setDT(Xdepth)[, .(
                 window.end = rollapply(locus, width=1000, by=1000, FUN=max, align="left", partial=TRUE),
                 coverage = rollapply(coverage, width=1000, by=1000, FUN=mean, align="left", partial=TRUE)
               ), .(Chr)]
-              
+
 
 ## tdyvers
 
@@ -41,3 +42,5 @@ gwascat[,by="chr_id",.(
   window.end = zoo::rollapply(chr_pos, width=wd,by=wd,  FUN=max, align="left",partial=T),
   coverage = zoo::rollapply(p_value, width=wd,by=wd, FUN=mean, align="left",partial=T)
 )]->rr
+
+}

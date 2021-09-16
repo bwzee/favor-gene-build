@@ -1,7 +1,6 @@
 #Compare Favor HGNC symbols
 
-library(data.table)
-
+compare_geneids_favor<-function(){
 setwd("..")
 
 favorids=fread("FAVOR/geneIdDistinct.txt",header=F)$V1
@@ -45,6 +44,5 @@ datatable(mdf)
 intersect(fv_ens,prot_genes$gene_stable_id) %>% length()
 #How many favor ensembl IDs are not in protein-coding ensembl: ] 20623
 setdiff(fv_ens,prot_genes$gene_stable_id) %>% length()
-
-
+}
 
